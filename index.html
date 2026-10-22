@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="서울디지털대학교 시작 홈페이지 - 오늘의 날씨, Google 검색, 마음을 나누는 성경 말씀">
+  <title>서울디지털대학교 시작 페이지</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      color: #202124;
+      background: #fff;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 7.2%;
+      border-bottom: 1px solid #f1f3f4;
+    }
+
+    .site-title {
+      color: #202124;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.7px;
+      text-decoration: none;
+    }
+
+    main {
+      width: min(100% - 40px, 980px);
+      margin: 0 auto;
+      padding: 30px 0 24px;
+      flex: 1;
+    }
+
+    .welcome {
+      margin: 0 0 22px;
+      text-align: center;
+      font-size: clamp(25px, 4vw, 32px);
+      font-weight: 400;
+      letter-spacing: -1.7px;
+    }
+
+    .search-form {
+      width: min(100%, 584px);
+      height: 50px;
+      margin: 0 auto;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      border: 1px solid #dfe1e5;
+      border-radius: 28px;
+      box-shadow: 0 1px 6px rgb(32 33 36 / 18%);
+      transition: box-shadow 160ms ease;
+    }
+
+    .search-form:hover,
+    .search-form:focus-within {
+      box-shadow: 0 1px 8px rgb(32 33 36 / 28%);
+    }
+
+    .search-icon {
+      width: 19px;
+      height: 19px;
+      flex: 0 0 auto;
+      color: #9aa0a6;
+    }
+
+    .search-form input {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: #202124;
+      font: inherit;
+      font-size: 16px;
+    }
+
+    .search-form button {
+      display: grid;
+      place-items: center;
+      padding: 7px;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: #4285f4;
+      cursor: pointer;
+    }
+
+    .search-form button:hover { background: #f1f3f4; }
+
+    .search-form button svg { width: 19px; height: 19px; }
+
+    .search-hint {
+      margin: 9px 0 0;
+      color: #70757a;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .weather-section { margin-top: 34px; }
+
+    .section-heading {
+      margin: 0 0 12px;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    .weather-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .weather-card {
+      min-height: 124px;
+      padding: 16px 18px;
+      border: 1px solid #dadce0;
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .weather-city {
+      margin: 0;
+      color: #5f6368;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .weather-main {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 6px;
+    }
+
+    .weather-icon { font-size: 30px; line-height: 1; }
+
+    .temperature {
+      font-size: 30px;
+      font-weight: 400;
+      letter-spacing: -1.5px;
+    }
+
+    .weather-description {
+      margin: 0;
+      color: #5f6368;
+      font-size: 14px;
+    }
+
+    .weather-range {
+      margin: 7px 0 0;
+      color: #70757a;
+      font-size: 13px;
+    }
+
+    .weather-status {
+      margin: 14px 0 0;
+      color: #70757a;
+      font-size: 13px;
+    }
+
+    .verse-card {
+      margin-top: 24px;
+      padding: 20px 24px;
+      border-radius: 14px;
+      background: #f8f9fa;
+      text-align: center;
+    }
+
+    .verse-label {
+      margin: 0 0 8px;
+      color: #4285f4;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .verse-text {
+      max-width: 690px;
+      margin: 0 auto;
+      font-size: clamp(16px, 2.3vw, 19px);
+      line-height: 1.55;
+      letter-spacing: -0.5px;
+      word-break: keep-all;
+    }
+
+    .verse-reference {
+      margin: 8px 0 0;
+      color: #5f6368;
+      font-size: 14px;
+    }
+
+    .verse-next {
+      margin-top: 12px;
+      padding: 8px 15px;
+      border: 1px solid #dadce0;
+      border-radius: 18px;
+      background: #fff;
+      color: #3c4043;
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .verse-next:hover { background: #f1f3f4; }
+
+    footer {
+      padding: 12px 20px;
+      border-top: 1px solid #f1f3f4;
+      color: #70757a;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .topbar { min-height: 56px; padding: 0 18px; }
+      .site-title { font-size: 17px; }
+      main { width: min(100% - 32px, 980px); padding: 26px 0 18px; }
+      .welcome { margin-bottom: 18px; }
+      .weather-section { margin-top: 28px; }
+      .weather-grid { gap: 10px; }
+      .weather-card { min-height: 116px; padding: 14px 12px; }
+      .weather-main { gap: 8px; }
+      .weather-icon { font-size: 26px; }
+      .temperature { font-size: 27px; }
+      .weather-description { font-size: 12px; }
+      .weather-range { font-size: 11px; }
+      .verse-card { margin-top: 20px; padding: 17px 16px; }
+      .verse-text { font-size: 16px; line-height: 1.5; }
+      .verse-next { margin-top: 10px; padding: 7px 13px; }
+      footer { padding: 10px 16px; }
+    }
+
+    @media (max-width: 380px) {
+      main { width: min(100% - 24px, 980px); }
+      .weather-card { padding: 12px 9px; }
+      .weather-main { gap: 6px; }
+      .weather-icon { font-size: 23px; }
+      .temperature { font-size: 25px; }
+      .weather-description { font-size: 11px; }
+      .weather-range { font-size: 10px; }
+    }
+
+    @media (max-height: 700px) {
+      main { padding-top: 18px; padding-bottom: 14px; }
+      .weather-section { margin-top: 22px; }
+      .weather-card { min-height: 108px; }
+      .verse-card { margin-top: 16px; padding-top: 14px; padding-bottom: 14px; }
+      .verse-next { margin-top: 8px; }
+      footer { padding-top: 8px; padding-bottom: 8px; }
+    }
+
+    @media (max-height: 600px) {
+      .topbar { min-height: 52px; }
+      main { padding-top: 12px; padding-bottom: 8px; }
+      .welcome { margin-bottom: 14px; }
+      .search-hint { display: none; }
+      .weather-section { margin-top: 18px; }
+      .verse-card { margin-top: 12px; padding: 10px 12px; }
+      .verse-label { margin-bottom: 5px; }
+      .verse-reference { margin-top: 5px; }
+      .verse-next { margin-top: 6px; }
+      footer { padding-top: 6px; padding-bottom: 6px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="site-title" href="./" aria-label="서울디지털대학교 시작 페이지">서울디지털대학교</a>
+  </header>
+
+  <main>
+    <h1 class="welcome">무엇이든 검색해 보세요</h1>
+    <form class="search-form" action="https://www.google.com/search" method="get" role="search">
+      <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="10.8" cy="10.8" r="6.8" fill="none" stroke="currentColor" stroke-width="2"></circle>
+        <path d="m16 16 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      </svg>
+      <input type="search" name="q" aria-label="Google 검색" placeholder="Google 검색 또는 URL 입력" autocomplete="off">
+      <button type="submit" aria-label="검색">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.71.71l.27.28v.78L20 21.49 21.49 20 15.5 14Zm-5 0A4.5 4.5 0 1 1 10.5 5a4.5 4.5 0 0 1 0 9Z"></path>
+        </svg>
+      </button>
+    </form>
+    <p class="search-hint">Google 검색으로 빠르게 찾아보세요</p>
+
+    <section class="weather-section" aria-labelledby="weather-heading">
+      <h2 class="section-heading" id="weather-heading">오늘의 날씨</h2>
+      <div class="weather-grid">
+        <article class="weather-card" data-city="seoul" aria-label="서울 날씨">
+          <h3 class="weather-city">서울</h3>
+          <p class="weather-status">날씨 정보를 불러오는 중입니다.</p>
+        </article>
+        <article class="weather-card" data-city="incheon" aria-label="인천 날씨">
+          <h3 class="weather-city">인천</h3>
+          <p class="weather-status">날씨 정보를 불러오는 중입니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="verse-card" aria-labelledby="verse-heading">
+      <p class="verse-label" id="verse-heading">오늘 마음에 담는 말씀</p>
+      <blockquote class="verse-text" id="verse-text"></blockquote>
+      <p class="verse-reference" id="verse-reference"></p>
+      <button class="verse-next" id="verse-next" type="button">다른 말씀 보기</button>
+    </section>
+  </main>
+
+  <footer>오늘도 평안하고 따뜻한 하루 보내세요.</footer>
+
+  <script>
+    const verses = [
+      {
+        text: "내가 너를 굳세게 하리라 참으로 너를 도와주리라 참으로 나의 의로운 오른손으로 너를 붙들리라",
+        reference: "이사야 41:10"
+      },
+      {
+        text: "수고하고 무거운 짐 진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라",
+        reference: "마태복음 11:28"
+      },
+      {
+        text: "사랑은 오래 참고 사랑은 온유하며 시기하지 아니하며 사랑은 자랑하지 아니하며 교만하지 아니하며",
+        reference: "고린도전서 13:4"
+      },
+      {
+        text: "두려워하지 말라 내가 너와 함께 함이라 놀라지 말라 나는 네 하나님이 됨이라",
+        reference: "이사야 41:10"
+      },
+      {
+        text: "너희 염려를 다 주께 맡기라 이는 그가 너희를 돌보심이라",
+        reference: "베드로전서 5:7"
+      }
+    ];
+
+    const weatherCities = [
+      { id: "seoul", latitude: 37.5665, longitude: 126.978 },
+      { id: "incheon", latitude: 37.4563, longitude: 126.7052 }
+    ];
+
+    const weatherDescriptions = {
+      0: ["맑음", "☀️"],
+      1: ["대체로 맑음", "🌤️"],
+      2: ["구름 조금", "⛅"],
+      3: ["흐림", "☁️"],
+      45: ["안개", "🌫️"],
+      48: ["안개", "🌫️"],
+      51: ["약한 이슬비", "🌦️"],
+      53: ["이슬비", "🌦️"],
+      55: ["강한 이슬비", "🌧️"],
+      56: ["어는 이슬비", "🌧️"],
+      57: ["어는 이슬비", "🌧️"],
+      61: ["약한 비", "🌦️"],
+      63: ["비", "🌧️"],
+      65: ["강한 비", "🌧️"],
+      66: ["어는 비", "🌧️"],
+      67: ["강한 어는 비", "🌧️"],
+      71: ["약한 눈", "🌨️"],
+      73: ["눈", "🌨️"],
+      75: ["강한 눈", "❄️"],
+      77: ["싸락눈", "🌨️"],
+      80: ["소나기", "🌦️"],
+      81: ["강한 소나기", "🌧️"],
+      82: ["매우 강한 소나기", "🌧️"],
+      85: ["눈 소나기", "🌨️"],
+      86: ["강한 눈 소나기", "❄️"],
+      95: ["뇌우", "⛈️"],
+      96: ["우박을 동반한 뇌우", "⛈️"],
+      99: ["강한 우박을 동반한 뇌우", "⛈️"]
+    };
+
+    function showVerse(index) {
+      const verse = verses[index];
+      document.getElementById("verse-text").textContent = `“${verse.text}”`;
+      document.getElementById("verse-reference").textContent = verse.reference;
+    }
+
+    function showWeatherError(cityId) {
+      const card = document.querySelector(`[data-city="${cityId}"]`);
+      const status = document.createElement("p");
+      status.className = "weather-status";
+      status.textContent = "날씨 정보를 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.";
+      card.append(status);
+    }
+
+    async function loadWeather(city) {
+      const card = document.querySelector(`[data-city="${city.id}"]`);
+      const url = new URL("https://api.open-meteo.com/v1/forecast");
+      url.search = new URLSearchParams({
+        latitude: city.latitude,
+        longitude: city.longitude,
+        current: "temperature_2m,weather_code",
+        daily: "temperature_2m_max,temperature_2m_min",
+        timezone: "Asia/Seoul",
+        forecast_days: "1"
+      });
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`날씨 API 응답 오류: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const current = data.current;
+        const today = data.daily;
+        if (!current || !today || !Number.isFinite(current.temperature_2m) ||
+            !Number.isFinite(today.temperature_2m_max?.[0]) ||
+            !Number.isFinite(today.temperature_2m_min?.[0])) {
+          throw new Error("날씨 API 응답에 필요한 정보가 없습니다.");
+        }
+
+        const [description, icon] = weatherDescriptions[current.weather_code] ?? ["날씨 정보", "🌡️"];
+        card.innerHTML = `
+          <h3 class="weather-city">${city.id === "seoul" ? "서울" : "인천"}</h3>
+          <div class="weather-main">
+            <span class="weather-icon" aria-hidden="true">${icon}</span>
+            <span class="temperature">${Math.round(current.temperature_2m)}°</span>
+            <p class="weather-description">${description}</p>
+          </div>
+          <p class="weather-range">오늘 최고 ${Math.round(today.temperature_2m_max[0])}° · 최저 ${Math.round(today.temperature_2m_min[0])}°</p>
+        `;
+      } catch (error) {
+        console.error(`${city.id} 날씨를 불러오지 못했습니다.`, error);
+        showWeatherError(city.id);
+      }
+    }
+
+    let verseIndex = Math.floor(Math.random() * verses.length);
+    showVerse(verseIndex);
+    document.getElementById("verse-next").addEventListener("click", () => {
+      verseIndex = (verseIndex + 1) % verses.length;
+      showVerse(verseIndex);
+    });
+    weatherCities.forEach(loadWeather);
+  </script>
+</body>
+</html>
